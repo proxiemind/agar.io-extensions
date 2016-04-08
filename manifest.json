@@ -1,0 +1,17 @@
+{
+	"author": "proxiemind",
+	"background": {
+		"persistent": false,
+		"scripts": [
+			"aDevToolBackground.js"
+		]
+	},
+	"description": "Dev Tool console designed to get link to Agar.io server in easy way",
+	"devtools_page": "aDevToolsDummy.html",
+	"manifest_version": 2,
+	"name": "Agar.io Console",
+	"permissions": [
+		"tabs"
+	],
+	"version": "0.1"
+}
