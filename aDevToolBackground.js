@@ -1,6 +1,21 @@
 var responses = Array();
 var updateAvailable = null;
-// var url = null;
+var url = null;
+var urlTabId = null;
+
+
+chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
+
+	if(urlTabId == tabId) {
+
+		url = tab.url;
+
+		console.log('updated', url);
+
+	}
+
+});
+
 
 function ajaxRequest(dataString, url, method, responseFunction) {
 	
@@ -88,29 +103,23 @@ chrome.runtime.onMessage.addListener(function(r, s, sR) {
 				
 			});
 
-			// chrome.tabs.query({active: true, lastFocusedWindow: false}, function(tabs) {
-
-			// 	url = tabs[0].url;
-
-			// });
-
 		} catch(e) {
 
 		}
 
 		sR({v: chrome.runtime.getManifest().version, s: "OK"});
 
-	// } else if(r.a == "cu") {
+	} else if(r.a == "cu") {
 
-	// 	if(url.indexOf('ip') !== -1) {
+		if(url.indexOf('ip') !== -1) {
 
-	// 		sR({v: url, s: "yes"});
+			sR({v: url, s: "yes"});
 
-	// 	} else{
+		} else{
 
-	// 		sR({s: "no"});
+			sR({s: "no"});
 
-	// 	}
+		}
 
 	} else if(r.a == "u") {
 
@@ -124,9 +133,22 @@ chrome.runtime.onMessage.addListener(function(r, s, sR) {
 
 		}
 
+	} else if(r.a == 'init') {
+
+		// Eh, chrome.tabs.onCreated and/or onUpdated are async methods, to avoid errors first finding proper tab with agar.io
+
+		chrome.tabs.query({active: true, url: "*://agar.io/*"}, function(tabs) {
+
+			url			= tabs[0].url;
+			urlTabId	= tabs[0].id;
+
+			console.log('tab: ', tabs[0]);
+			console.log('url: ', url);
+
+		});
+
+		sR({s: "ok"});
+
 	}
 
 });
-
-
-
