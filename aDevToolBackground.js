@@ -78,6 +78,32 @@ function ajaxRequest(dataString, url, method, responseFunction) {
 }
 
 
+function checkURL() {
+
+	chrome.tabs.query({active: true, url: "*://agar.io/*"}, function(tabs) {
+
+		if(tabs.length > 0) {
+
+			url			= tabs[0].url;
+			urlTabId	= tabs[0].id;
+
+			console.log('tab: ', tabs[0]);
+			console.log('url: ', url);
+
+		} else {
+
+			url			= null;
+			urlTabId	= null;
+
+			console.log('NO Active Agar.io tab');
+
+		}
+
+	});
+
+}
+
+
 chrome.runtime.onMessage.addListener(function(r, s, sR) {
 
 	if (r.a == "mv") {
@@ -111,15 +137,27 @@ chrome.runtime.onMessage.addListener(function(r, s, sR) {
 
 	} else if(r.a == "cu") {
 
-		if(url.indexOf('ip') !== -1) {
+		if(url != null) {
 
-			sR({v: url, s: "yes"});
+			if(url.indexOf('ip') !== -1) {
 
-		} else{
+				sR({v: url, s: "yes"});
+
+			} else{
+
+				sR({s: "no"});
+
+			}
+
+		} else {
 
 			sR({s: "no"});
 
+			// Async, so need to wait until next iteration
+			checkURL();
+
 		}
+
 
 	} else if(r.a == "u") {
 
@@ -135,17 +173,7 @@ chrome.runtime.onMessage.addListener(function(r, s, sR) {
 
 	} else if(r.a == 'init') {
 
-		// Eh, chrome.tabs.onCreated and/or onUpdated are async methods, to avoid errors first finding proper tab with agar.io
-
-		chrome.tabs.query({active: true, url: "*://agar.io/*"}, function(tabs) {
-
-			url			= tabs[0].url;
-			urlTabId	= tabs[0].id;
-
-			console.log('tab: ', tabs[0]);
-			console.log('url: ', url);
-
-		});
+		checkURL();
 
 		sR({s: "ok"});
 
