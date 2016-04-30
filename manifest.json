@@ -6,12 +6,12 @@
 			"aDevToolBackground.js"
 		]
 	},
-	"description": "Dev Tool console designed to get link to Agar.io server in easy way",
+	"description": "Agar.io Console is a Dev Tools plugin allowing player an easy access to server link",
 	"devtools_page": "aDevToolsDummy.html",
 	"manifest_version": 2,
 	"name": "Agar.io Console",
 	"permissions": [
 		"tabs"
 	],
-	"version": "0.2"
+	"version": "0.3"
 }

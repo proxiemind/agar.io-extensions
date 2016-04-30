@@ -3,6 +3,7 @@
 	<head>
 		<title>Link to current agar.io server</title>
 		<script src="aConsoleScripts.js"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
 		<style>
 body {
 	background: #F5F5F5;
@@ -40,7 +41,54 @@ a {
 	font-size: 10px;
 }
 
+#linkBox {
+	background: #FFFFFF;
+	border: 1px solid #555555;
+	border-radius: 5px;
+	display: inline-block;
+}
+
+	#linkBox input {
+		background: transparent;
+		border: none;
+		color: #333333;
+		font-size: 20px;
+		padding: 3px 10px;
+		width: 400px;
+	}
+
+	#linkBox button {
+		border: none;
+		color: #FFFFFF;
+		cursor: pointer;
+		font-size: 20px;
+		opacity: 0.5;
+		padding: 3px 10px;
+	}
+
+		#linkBox button:last-child {
+			border-top-right-radius: 5px;
+			border-bottom-right-radius: 5px;
+		}
+
+	#justCopyLink {
+		background: #AAAAAA;
+		border-left: none !important;
+	}
+
+	#blue {
+		background: #0000FF;
+	}
+
+	#red {
+		background: #FF0000;
+	}
+
+	#green {
+		background: #00CC00;
+	}
+
 		</style>
 	</head>
-	<body><div id="updateAvailable" class="niceBox u"></div><br><div id="ipInUrl" class="niceBox">Searching for new server? If yes, remove IP from address bar first!</div><h1 id="alink">Please select Game Mode first! (Checkout <a href="https://github.com/proxiemind/agar.io-extensions/wiki/User-Manual---Google-Chrome" target="_blank">User Manual</a>)</h1><p>Agar.io Console extension page available on <a href="https://github.com/proxiemind/agar.io-extensions/tree/Chrome" target="_blank">GitHub</a><br>Is console "misbehaving" (any problems)? <a href="https://github.com/proxiemind/agar.io-extensions/tree/Chrome#rules-of-reporting-issues" target="_blank">See how to report an issue</a><br>Ideas for improvement? <a href="https://github.com/proxiemind/agar.io-extensions/issues/new" target="_blank">Report an idea</a><br><span id="cV">v 0.1 beta</span></p></body>
+	<body><div id="updateAvailable" class="niceBox u"></div><br><div id="ipInUrl" class="niceBox">Searching for new server? If yes, remove IP from address bar first!</div><h1>Select Game Mode to get link - <a href="https://github.com/proxiemind/agar.io-extensions/wiki/User-Manual---Google-Chrome" target="_blank">User Manual</a></h1><div id="linkBox"><input id="alink" type="text" readonly /><button id="justCopyLink" title="Copy to clipboard"><i class="fa fa-link" aria-hidden="true"></i></button><button id="green" title="Chatovod format to clipboard">Green</button><button id="blue" title="Chatovod format to clipboard">Blue</button><button id="red" title="Chatovod format to clipboard">Red</button></div><p>Agar.io Console extension page available on <a href="https://github.com/proxiemind/agar.io-extensions/tree/Chrome" target="_blank">GitHub</a><br>Is console "misbehaving" (any problems)? <a href="https://github.com/proxiemind/agar.io-extensions/tree/Chrome#rules-of-reporting-issues" target="_blank">See how to report an issue</a><br>Ideas for improvement? <a href="https://github.com/proxiemind/agar.io-extensions/issues/new" target="_blank">Report an idea</a><br><span id="cV">v 0.1 beta</span></p></body>
 </html>

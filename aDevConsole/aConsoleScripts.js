@@ -1,5 +1,4 @@
-var blockTraffic = false;
-
+var blockTraffic	= false;
 
 function ipInUrl() {
 
@@ -11,7 +10,7 @@ function ipInUrl() {
 
 			blockTraffic = true;
 
-			document.getElementById('alink').innerHTML = r.v;
+			document.getElementById('alink').value = r.v;
 			document.getElementById('ipInUrl').style.display = 'inline-block';
 
 		} else {
@@ -24,6 +23,28 @@ function ipInUrl() {
 	});
 
 	window.setTimeout(ipInUrl, 1000); // Background script can't send message here unfortunately. Better solution is needed.
+
+}
+
+
+function handleButton(c) {
+
+	var alink = document.getElementById('alink');
+
+	var originalLink = alink.value;
+
+	var fraction = c == 'g' ? ' - [color=#6aa84f]GREEN[/color]' : c == 'b' ? ' - [color=#3d85c6]BLUE[/color]' : c == 'r' ? ' - [color=#cc0000]RED[/color]' : '';
+
+	alink.value = '[size=30][url]' + alink.value + '[/url]' + fraction + '[/size]';
+
+	var alink = document.getElementById('alink');
+		alink.setSelectionRange(0, alink.selectionEnd);
+
+	document.execCommand('copy');
+
+	window.getSelection().removeAllRanges();
+
+	alink.value = originalLink;
 
 }
 
@@ -42,7 +63,7 @@ chrome.devtools.network.onRequestFinished.addListener(function(net) {
 		if(!blockTraffic) {
 
 			net.getContent(function(content){
-				document.getElementById('alink').innerHTML = 'http://agar.io/?ip=' + JSON.parse(content).ip;
+				document.getElementById('alink').value = 'http://agar.io/?ip=' + JSON.parse(content).ip;
 				
 			});
 
@@ -75,6 +96,42 @@ window.setTimeout(function(){
 			}
 
 		}
+
+
+		// What a dirty hack :S No better ideas how to add listeners to those buttons in aConsole.html without chrome.* calls :/
+
+
+		var justCopyLink	= document.getElementById('justCopyLink');
+		var green			= document.getElementById('green');
+		var blue			= document.getElementById('blue');
+		var red				= document.getElementById('red');
+
+		justCopyLink.addEventListener("click", function() {
+
+			var alink = document.getElementById('alink');
+				alink.setSelectionRange(0, alink.selectionEnd);
+
+			document.execCommand('copy');
+
+			window.getSelection().removeAllRanges();
+
+		});
+
+		green.addEventListener("click", function() {
+			handleButton('g');
+			
+		});
+
+		blue.addEventListener("click", function() {
+			handleButton('b');
+			
+		});
+
+		red.addEventListener("click", function() {
+			handleButton('r');
+
+		});
+
 
 	});
 	
