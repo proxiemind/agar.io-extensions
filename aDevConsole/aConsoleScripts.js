@@ -63,7 +63,7 @@ chrome.devtools.network.onRequestFinished.addListener(function(net) {
 		if(!blockTraffic) {
 
 			net.getContent(function(content){
-				document.getElementById('alink').value = 'http://agar.io/?ip=' + JSON.parse(content).ip;
+				document.getElementById('alink').value = 'http://agar.io/?sip=' + JSON.parse(content).ip;
 				
 			});
 
